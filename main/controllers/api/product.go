@@ -1,8 +1,8 @@
 package api
 
 import (
-	DB "github.com/hassan/crud_echo/configs"
-	"github.com/hassan/crud_echo/models"
+	DB "crud_echo/configs"
+	"crud_echo/models"
 	"github.com/labstack/echo"
 	"net/http"
 )
