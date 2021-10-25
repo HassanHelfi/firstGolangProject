@@ -8,7 +8,7 @@ import (
 )
 
 func CreateCon() *gorm.DB {
-	dbCon, err := gorm.Open("postgres", DbConfig())
+	dbCon, err := gorm.Open("postgres", dbConfig())
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
@@ -24,7 +24,7 @@ func CreateCon() *gorm.DB {
 	return dbCon
 }
 
-func DbConfig() string {
+func dbConfig() string {
 	conf := "user=" + os.Getenv("DB_USER") +
 		" " + "port=" + os.Getenv("DB_PORT") +
 		" " + "password=" + os.Getenv("DB_PASSWORD") +
