@@ -15,12 +15,6 @@ func CreateCon() *gorm.DB {
 		fmt.Println("db is connected")
 	}
 
-	err = dbCon.Error
-	fmt.Println(err)
-	if err != nil {
-		fmt.Println("db is not connected")
-		fmt.Println(err.Error())
-	}
 	return dbCon
 }
 
