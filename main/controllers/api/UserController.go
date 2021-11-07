@@ -18,7 +18,7 @@ func Index(c echo.Context) error {
 
 func Show(c echo.Context) error {
 	id := c.Param("id")
-	prod := configs.CreateCon().Find(&models.Product{}, id)
+	prod := configs.CreateCon().Find(&models.User{}, id)
 	return c.JSON(http.StatusOK, prod)
 }
 
