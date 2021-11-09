@@ -3,6 +3,7 @@ package api
 import (
 	"crud_echo/configs"
 	"crud_echo/models"
+	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
 	"strconv"
@@ -13,7 +14,15 @@ var user []models.User
 
 func Index(c echo.Context) error {
 	rows := configs.CreateCon().Find(&user)
-	return c.JSON(http.StatusOK, rows)
+	err := configs.RedisCon().Set("users_index", rows, 0).Err()
+	if err != nil {
+		fmt.Println(err)
+	}
+	user_index, err := configs.RedisCon().Get("user_index").Result()
+	if err != nil {
+		fmt.Println(err)
+	}
+	return c.JSON(http.StatusOK, user_index)
 }
 
 func Show(c echo.Context) error {
@@ -32,7 +41,7 @@ func Store(c echo.Context) error {
 
 	//roles := []int{c.FormValue("roles")}
 
-	user:= configs.CreateCon().Create(&models.User{
+	user := configs.CreateCon().Create(&models.User{
 		FirstName: first_name,
 		LastName:  full_name,
 		Email:     &email,
