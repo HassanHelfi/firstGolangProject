@@ -1,16 +1,7 @@
 package main
 
-import (
-	"crud_echo/migrations"
-	"crud_echo/routes"
-	"github.com/joho/godotenv"
-)
+import "crud_echo/app"
 
 func main() {
-	//load .env file
-	godotenv.Load(".env")
-	// auto migrate
-	migrations.Migrate()
-	// routes
-	routes.Routes()
+	app.Start()
 }

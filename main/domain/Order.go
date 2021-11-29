@@ -1,4 +1,4 @@
-package models
+package domain
 
 import (
 	"github.com/jinzhu/gorm"
@@ -12,7 +12,7 @@ type Order struct {
 	Discount      int
 	TotalPrice    uint
 	ShipDate      time.Time
-	ShipperID      uint
+	ShipperID     uint
 	Shipper       Shipper
 	UserID        uint
 	User          User

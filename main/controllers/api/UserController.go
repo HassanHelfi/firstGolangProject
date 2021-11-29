@@ -2,7 +2,7 @@ package api
 
 import (
 	"crud_echo/configs"
-	"crud_echo/models"
+	"crud_echo/domain"
 	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var user []models.User
+var user []domain.User
 
 func Index(c echo.Context) error {
 	rows := configs.CreateCon().Find(&user)
@@ -27,24 +27,24 @@ func Index(c echo.Context) error {
 
 func Show(c echo.Context) error {
 	id := c.Param("id")
-	prod := configs.CreateCon().Find(&models.User{}, id)
+	prod := configs.CreateCon().Find(&domain.User{}, id)
 	return c.JSON(http.StatusOK, prod)
 }
 
 func Store(c echo.Context) error {
 	first_name := c.FormValue("first_name")
 	full_name := c.FormValue("full_name")
-	email := c.FormValue("email")
+	//email := c.FormValue("email")
 	mobile := c.FormValue("mobile")
 	status, _ := strconv.ParseInt(c.FormValue("status"), 10, 64)
 	psassword := c.FormValue("psassword")
 
 	//roles := []int{c.FormValue("roles")}
 
-	user := configs.CreateCon().Create(&models.User{
+	user := configs.CreateCon().Create(&domain.User{
 		FirstName: first_name,
 		LastName:  full_name,
-		Email:     &email,
+		//Email:     &email,
 		Mobile:    mobile,
 		VerifyAt:  time.Now(),
 		Status:    uint(status),
@@ -59,14 +59,14 @@ func Update(c echo.Context) error {
 
 	first_name := c.FormValue("first_ame")
 	last_name := c.FormValue("full_name")
-	email := c.FormValue("email")
+	//email := c.FormValue("email")
 	mobile := c.FormValue("mobile")
 	status, _ := strconv.ParseInt(c.FormValue("status"), 10, 64)
 	psassword := c.FormValue("psassword")
-	person := configs.CreateCon().First(&models.User{}, user_id).Update(models.User{
+	person := configs.CreateCon().First(&domain.User{}, user_id).Update(domain.User{
 		FirstName: first_name,
 		LastName:  last_name,
-		Email:     &email,
+		//Email:     &email,
 		Mobile:    mobile,
 		VerifyAt:  time.Now(),
 		Status:    uint(status),
@@ -80,7 +80,7 @@ func Delete(c echo.Context) error {
 
 	user_id := c.Param("id")
 
-	person := configs.CreateCon().Delete(&models.User{}, user_id)
+	person := configs.CreateCon().Delete(&domain.User{}, user_id)
 
 	return c.JSON(http.StatusOK, person)
 }

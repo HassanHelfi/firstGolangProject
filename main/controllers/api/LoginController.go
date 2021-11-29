@@ -2,7 +2,7 @@ package api
 
 import (
 	"crud_echo/configs"
-	"crud_echo/models"
+	"crud_echo/domain"
 	"fmt"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
@@ -35,7 +35,7 @@ func Login(c echo.Context) error {
 }
 
 func createJwtToken() (string, error) {
-	claims := models.JwtClaims{
+	claims := domain.JwtClaims{
 		"hassan",
 		jwt.StandardClaims{
 			Id:        "main_user_id",
@@ -51,7 +51,7 @@ func createJwtToken() (string, error) {
 	return token, nil
 }
 func CheckUser(c echo.Context) error{
-	var user = models.User{}
+	var user = domain.User{}
 	email := c.FormValue("email")
 	pass := c.FormValue("password")
 	//first_name := c.FormValue("first_name")
